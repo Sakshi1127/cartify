@@ -9,17 +9,23 @@ const Header = () => {
     const {
         state:{cart},
         dispatch,
+        productDispatch
     }=CartState();
 
 
   return (
-   <Navbar bg="dark" variant ="dark" style={{height:70}}>
+   <Navbar bg="dark" variant ="dark" style={{height:60}}>
     <Container>
         <Navbar.Brand>
            <Link to="/">Cartify</Link>
         </Navbar.Brand>
         <Navbar.Text className='search'>
-            <FormControl style={{width:500}} placeholder="Search.." className='m-auto'/>
+            <FormControl style={{width:300}} placeholder="Search.." className='m-auto'   onChange={(e) => {
+                productDispatch({
+                  type: "FILTER_BY_SEARCH",
+                  payload: e.target.value,
+                });
+              }}/>
         </Navbar.Text>
 
         <Nav>
@@ -30,7 +36,20 @@ const Header = () => {
                </Dropdown.Toggle>
             
 
-            <Dropdown.Menu style={{minWidth:350}}>
+               <Dropdown.Menu 
+    style={{ 
+        minWidth: 300, 
+        right: 'auto', 
+        left: "-198px",
+        '@media (max-width: 650px)': {
+            position: 'absolute',
+            minWidth: "200px",
+            top: '100%',
+            left: "-178px",
+            right: 0,
+        }
+    }}
+>
 
                 {cart.length >0 ?(
                     <>
